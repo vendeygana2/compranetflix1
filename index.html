@@ -28,7 +28,8 @@
             background-color: #fefefe;
             margin: 5% auto;
             padding: 20px;
-            border: 1px solid #888;
+            border: 5px solid #ED7318; /* Marco más grueso y color naranja */
+            border-radius: 15px; /* Bordes redondeados */
             width: 90%;
             max-width: 600px;
             text-align: center;
@@ -78,7 +79,6 @@
         }
 
         .button {
-            background-color: #ED7318; /* Color naranja */
             border: none;
             color: white;
             padding: 15px 32px;
@@ -93,7 +93,15 @@
         }
 
         .button:hover {
-            background-color: #d46314; /* Un color ligeramente más oscuro para el hover */
+            opacity: 0.8;
+        }
+
+        .buy-button {
+            background-color: #E50914; /* Color rojo del logo de Netflix */
+        }
+
+        .back-button {
+            background-color: #ED7318; /* Color naranja */
         }
     </style>
 </head>
@@ -109,8 +117,8 @@
                 <iframe src="https://www.youtube.com/embed/B0MFq0Lnhw8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="buttons">
-                <button id="buyBtn" class="button">COMPRAR</button>
-                <button id="backBtn" class="button">VOLVER A VENDE Y GANA</button>
+                <button id="buyBtn" class="button buy-button">COMPRAR</button>
+                <button id="backBtn" class="button back-button">VOLVER A VENDE Y GANA</button>
             </div>
         </div>
     </div>
