@@ -111,6 +111,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="header">
+                <p id="greeting" class="greeting"></p>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo" class="logo">
                 <p class="notice">VER EL VIDEO ANTES DE COMPRAR</p>
             </div>
@@ -130,6 +131,23 @@
             var span = document.getElementsByClassName("close")[0];
             var buyBtn = document.getElementById("buyBtn");
             var backBtn = document.getElementById("backBtn");
+            var greeting = document.getElementById("greeting");
+
+            // Obtener la hora actual del dispositivo y mostrar un saludo
+            var now = new Date();
+            var hour = now.getHours();
+            var day = now.toLocaleDateString('es-ES', { weekday: 'long' });
+            var message = "";
+
+            if (hour >= 0 && hour < 12) {
+                message = "HOLA BUENOS DÍAS";
+            } else if (hour >= 12 && hour < 18) {
+                message = "HOLA BUENAS TARDES";
+            } else {
+                message = "HOLA BUENAS NOCHES";
+            }
+
+            greeting.textContent = `${message}, ¿QUÉ PODEMOS HACER POR TI ESTE ${day.toUpperCase()}?`;
 
             // Cerrar el modal al hacer clic en la 'x' y redirigir
             span.onclick = function() {
