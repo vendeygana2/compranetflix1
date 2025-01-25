@@ -12,7 +12,7 @@
         }
 
         .modal {
-            display: block; /* Cambiar a 'none' para ocultar */
+            display: none; /* Cambiar a 'block' para mostrar */
             position: fixed;
             z-index: 1;
             left: 0;
@@ -21,6 +21,7 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px); /* Efecto de desenfoque */
             padding-top: 60px;
         }
 
@@ -103,9 +104,20 @@
         .back-button {
             background-color: #ED7318; /* Color naranja */
         }
+
+        /* Estilo del botón que abre el modal */
+        .open-modal-button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <!-- Botón para abrir el modal -->
+    <button id="openModalBtn" class="open-modal-button">Abrir Modal</button>
+
     <div id="popup" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -126,9 +138,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var modal = document.getElementById("popup");
+            var openModalBtn = document.getElementById("openModalBtn");
             var span = document.getElementsByClassName("close")[0];
             var buyBtn = document.getElementById("buyBtn");
             var backBtn = document.getElementById("backBtn");
+
+            // Abrir el modal al hacer clic en el botón
+            openModalBtn.onclick = function() {
+                modal.style.display = "block";
+            }
 
             // Cerrar el modal al hacer clic en la 'x'
             span.onclick = function() {
