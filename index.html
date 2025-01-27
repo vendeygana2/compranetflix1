@@ -104,6 +104,72 @@
         .back-button {
             background-color: #ED7318; /* Color naranja */
         }
+
+        .likes-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .like-button {
+            background-color: #000000; /* Color negro */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .like-button:hover {
+            opacity: 0.8;
+        }
+
+        .like-count {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .like-count .heart-icon {
+            color: red;
+            margin-left: 5px;
+        }
+
+        .popup-message {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 2;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            padding: 20px;
+            border: 5px solid #ED7318; /* Marco naranja */
+            border-radius: 15px; /* Bordes redondeados */
+            text-align: center;
+        }
+
+        .popup-message .close-message {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .popup-message .close-message:hover,
+        .popup-message .close-message:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .popup-message img {
+            width: 100px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -111,7 +177,6 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="header">
-                <p id="greeting" class="greeting"></p>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo" class="logo">
                 <p class="notice">VER EL VIDEO ANTES DE COMPRAR</p>
             </div>
@@ -122,7 +187,20 @@
                 <button id="buyBtn" class="button buy-button">COMPRAR</button>
                 <button id="backBtn" class="button back-button">VOLVER A VENDE Y GANA</button>
             </div>
+            <div class="likes-container">
+                <div class="like-count">
+                    <span id="likeCount">285</span>
+                    <span class="heart-icon">❤️</span>
+                </div>
+                <button id="likeBtn" class="like-button">DARLE ME GUSTA</button>
+            </div>
         </div>
+    </div>
+
+    <div id="likeMessage" class="popup-message">
+        <span class="close-message">&times;</span>
+        <p id="likeMessageText"></p>
+        <img src="https://i.pinimg.com/originals/6d/04/85/6d0485006e455ef83290b2a5bcf27c56.gif" alt="Thank you GIF">
     </div>
 
     <script>
@@ -131,23 +209,50 @@
             var span = document.getElementsByClassName("close")[0];
             var buyBtn = document.getElementById("buyBtn");
             var backBtn = document.getElementById("backBtn");
-            var greeting = document.getElementById("greeting");
+            var likeCount = document.getElementById("likeCount");
+            var likeBtn = document.getElementById("likeBtn");
+            var likeMessage = document.getElementById("likeMessage");
+            var closeMessage = document.getElementsByClassName("close-message")[0];
+            var likeMessageText = document.getElementById("likeMessageText");
 
-            // Obtener la hora actual del dispositivo y mostrar un saludo
+            // Gestión de likes
+            var likes = localStorage.getItem('likes') ? parseInt(localStorage.getItem('likes')) : 285;
+            var lastLikeDate = localStorage.getItem('lastLikeDate') ? new Date(localStorage.getItem('lastLikeDate')) : new Date(0);
             var now = new Date();
-            var hour = now.getHours();
-            var day = now.toLocaleDateString('es-ES', { weekday: 'long' });
-            var message = "";
+            var currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            likeCount.textContent = `${likes}`;
 
-            if (hour >= 0 && hour < 12) {
-                message = "HOLA BUENOS DÍAS";
-            } else if (hour >= 12 && hour < 18) {
-                message = "HOLA BUENAS TARDES";
-            } else {
-                message = "HOLA BUENAS NOCHES";
+            // Incrementar likes al abrir la ventana si es un nuevo día
+            if (currentDate > lastLikeDate) {
+                likes++;
+                localStorage.setItem('likes', likes);
+                localStorage.setItem('lastLikeDate', currentDate);
+                likeCount.textContent = `${likes}`;
             }
 
-            greeting.textContent = `${message}, ¿QUÉ PODEMOS HACER POR TI ESTE ${day.toUpperCase()}?`;
+            // Incrementar likes al hacer clic en el botón
+            likeBtn.onclick = function() {
+                var lastLikeDate = localStorage.getItem('lastLikeDate') ? new Date(localStorage.getItem('lastLikeDate')) : new Date(0);
+                if (currentDate > lastLikeDate) {
+                    likes++;
+                    localStorage.setItem('likes', likes);
+                    localStorage.setItem('lastLikeDate', currentDate);
+                    likeCount.textContent = `${likes}`;
+
+                    // Mostrar mensaje de agradecimiento
+                    likeMessageText.textContent = "GRACIAS POR TU LIKE. ES MUY IMPORTANTE PARA NOSOTROS, PUES TU ERES NUESTRA RAZÓN DE MEJORAR CADA DÍA.";
+                    likeMessage.style.display = "block";
+                } else {
+                    // Mostrar mensaje de solo una vez al día
+                    likeMessageText.textContent = "GRACIAS PERO SOLO PUEDES DARLE LIKE UNA VEZ AL DÍA";
+                    likeMessage.style.display = "block";
+                }
+            }
+
+            // Cerrar el mensaje emergente
+            closeMessage.onclick = function() {
+                likeMessage.style.display = "none";
+            }
 
             // Cerrar el modal al hacer clic en la 'x' y redirigir
             span.onclick = function() {
@@ -172,6 +277,30 @@
                     window.location.href = "https://www.vendeygana.net/user/";
                 }
             }
+
+            // Incrementar likes automáticamente cada 4 horas y también al finalizar el día
+            function incrementLikes() {
+                likes += 4;
+                localStorage.setItem('likes', likes);
+                likeCount.textContent = `${likes}`;
+            }
+
+            incrementLikes(); // Incrementar likes al cargar la página
+
+            setInterval(incrementLikes, 4 * 60 * 60 * 1000); // Cada 4 horas
+
+            var midnight = new Date();
+            midnight.setHours(24, 0, 0, 0);
+            var timeUntilMidnight = midnight.getTime() - now.getTime();
+
+            setTimeout(function() {
+                setInterval(function() {
+                    incrementLikes(); // Incrementar 4 likes cada 4 horas
+                    likes += 14; // Incrementar 14 likes al finalizar el día
+                    localStorage.setItem('likes', likes);
+                    likeCount.textContent = `${likes}`;
+                }, 24 * 60 * 60 * 1000); // Ejecutar cada 24 horas
+            }, timeUntilMidnight);
         });
     </script>
 </body>
