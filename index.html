@@ -233,20 +233,24 @@
             // Incrementar likes al hacer clic en el botón
             likeBtn.onclick = function() {
                 var lastLikeDate = localStorage.getItem('lastLikeDate') ? new Date(localStorage.getItem('lastLikeDate')) : new Date(0);
-                if (currentDate > lastLikeDate) {
+                var now = new Date();
+
+                // Calcular la diferencia en horas entre la última vez que se dio like y ahora
+                var hoursDifference = Math.abs(now - lastLikeDate) / 36e5;
+
+                if (hoursDifference >= 24) {
                     likes++;
                     localStorage.setItem('likes', likes);
-                    localStorage.setItem('lastLikeDate', currentDate);
+                    localStorage.setItem('lastLikeDate', now);
                     likeCount.textContent = `${likes}`;
 
                     // Mostrar mensaje de agradecimiento
                     likeMessageText.textContent = "GRACIAS POR TU LIKE. ES MUY IMPORTANTE PARA NOSOTROS, PUES TU ERES NUESTRA RAZÓN DE MEJORAR CADA DÍA.";
-                    likeMessage.style.display = "block";
                 } else {
                     // Mostrar mensaje de solo una vez al día
                     likeMessageText.textContent = "GRACIAS PERO SOLO PUEDES DARLE LIKE UNA VEZ AL DÍA";
-                    likeMessage.style.display = "block";
                 }
+                likeMessage.style.display = "block";
             }
 
             // Cerrar el mensaje emergente
