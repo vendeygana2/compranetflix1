@@ -3,16 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta Emergente</title>
+    <title>Pantalla Emergente</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
         .modal {
-            display: block; /* Cambiar a 'none' para ocultar */
+            display: none;
             position: fixed;
             z-index: 1;
             left: 0;
@@ -20,292 +14,113 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-            backdrop-filter: blur(5px); /* Efecto de desenfoque */
-            padding-top: 60px;
+            background-color: rgba(0, 0, 0, 0.4);
         }
-
         .modal-content {
             background-color: #fefefe;
-            margin: 5% auto;
+            margin: 10% auto;
             padding: 20px;
-            border: 5px solid #ED7318; /* Marco más grueso y color naranja */
-            border-radius: 15px; /* Bordes redondeados */
+            border: 2px solid orange;
+            border-radius: 15px;
             width: 90%;
             max-width: 600px;
-            text-align: center;
+            position: relative;
+            box-sizing: border-box;
         }
-
         .close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
             color: #aaa;
-            float: right;
             font-size: 28px;
             font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
             cursor: pointer;
         }
-
-        .logo {
-            width: 100px;
+        .highlight {
+            font-weight: bold;
+            color: red;
         }
-
-        .notice {
-            font-size: 18px;
-            color: #ED7318; /* Color naranja */
-            margin-top: 10px;
+        .blink {
+            animation: blink-animation 1.5s steps(5, start) infinite;
+            -webkit-animation: blink-animation 1.5s steps(5, start) infinite;
+            font-weight: bold;
+            color: orange;
+            font-size: 1.5em;
+            text-align: center;
         }
-
-        .video-container {
-            margin: 20px 0;
-        }
-
-        .video-container iframe {
-            width: 100%;
-            height: 200px;
-        }
-
-        @media (min-width: 600px) {
-            .video-container iframe {
-                height: 315px;
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
             }
         }
-
-        .buttons {
-            margin-top: 20px;
+        @-webkit-keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
         }
-
-        .button {
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
+        iframe {
+            width: 100%;
+            height: 315px;
+            border: 2px solid #ddd;
             border-radius: 5px;
-            width: calc(100% - 16px);
         }
-
-        .button:hover {
-            opacity: 0.8;
-        }
-
-        .buy-button {
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
             background-color: #E50914; /* Color rojo del logo de Netflix */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
         }
-
-        .back-button {
+        button:hover {
+            background-color: #B20710;
+        }
+        .info-btn {
             background-color: #ED7318; /* Color naranja */
         }
-
-        .likes-container {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .like-button {
-            background-color: #000000; /* Color negro */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .like-button:hover {
-            opacity: 0.8;
-        }
-
-        .like-count {
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-        }
-
-        .like-count .heart-icon {
-            color: red;
-            margin-left: 5px;
-        }
-
-        .popup-message {
-            display: none; /* Oculto por defecto */
-            position: fixed;
-            z-index: 2;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fefefe;
-            padding: 20px;
-            border: 5px solid #ED7318; /* Marco naranja */
-            border-radius: 15px; /* Bordes redondeados */
-            text-align: center;
-        }
-
-        .popup-message .close-message {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .popup-message .close-message:hover,
-        .popup-message .close-message:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .popup-message img {
-            width: 100px;
-            margin-top: 20px;
+        .info-btn:hover {
+            background-color: #D66318;
         }
     </style>
 </head>
 <body>
-    <div id="popup" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="header">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo" class="logo">
-                <p class="notice">VER EL VIDEO ANTES DE COMPRAR</p>
-            </div>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/B0MFq0Lnhw8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="buttons">
-                <button id="buyBtn" class="button buy-button">COMPRAR</button>
-                <button id="backBtn" class="button back-button">VOLVER A VENDE Y GANA</button>
-            </div>
-            <div class="likes-container">
-                <div class="like-count">
-                    <span id="likeCount">285</span>
-                    <span class="heart-icon">❤️</span>
-                </div>
-                <button id="likeBtn" class="like-button">DARLE ME GUSTA</button>
-            </div>
-        </div>
+
+<!-- Ventana emergente -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>MIRA EL VIDEO ANTES DE COMPRAR</p>
+        <iframe src="https://www.youtube.com/embed/B0MFq0Lnhw8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <br><br>
+        <button onclick="window.location.href='https://vendeygana2.github.io/pruebanextflix/'">Comprar</button>
+        <p class="blink">CRECEMOS CONTIGO!</p>
+        <p>En <strong>VENDE Y GANA</strong> queremos apoyarte. Ahora, si realizas una transferencia de <span class="highlight">700 BS por Pago Móvil a Mercantil</span> para la compra de cuentas, podrás reclamar con el comprobante de pago o referencia <span class="highlight">TOTALMENTE GRATIS</span> una pantalla de una de estas plataformas: <strong>Amazon Prime</strong>, <strong>Max</strong>, <strong>Panaxtreaming</strong>, <strong>Flujo TV</strong>, <strong>Paramount</strong>, <strong>Crunchyroll</strong>, <strong>Disney</strong> o <strong>YouTube Premium</strong>.</p>
+        <button class="info-btn" onclick="window.location.href='https://departamentodecuentas.company.site/products/recarga-premium'">Más información</button>
     </div>
+</div>
 
-    <div id="likeMessage" class="popup-message">
-        <span class="close-message">&times;</span>
-        <p id="likeMessageText"></p>
-        <img src="https://i.pinimg.com/originals/6d/04/85/6d0485006e455ef83290b2a5bcf27c56.gif" alt="Thank you GIF">
-    </div>
+<script>
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById("popup");
-            var span = document.getElementsByClassName("close")[0];
-            var buyBtn = document.getElementById("buyBtn");
-            var backBtn = document.getElementById("backBtn");
-            var likeCount = document.getElementById("likeCount");
-            var likeBtn = document.getElementById("likeBtn");
-            var likeMessage = document.getElementById("likeMessage");
-            var closeMessage = document.getElementsByClassName("close-message")[0];
-            var likeMessageText = document.getElementById("likeMessageText");
+    window.onload = function() {
+        modal.style.display = "block";
+    }
 
-            // Gestión de likes
-            var likes = localStorage.getItem('likes') ? parseInt(localStorage.getItem('likes')) : 285;
-            var lastLikeDate = localStorage.getItem('lastLikeDate') ? new Date(localStorage.getItem('lastLikeDate')) : new Date(0);
-            var now = new Date();
-            var currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            likeCount.textContent = `${likes}`;
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
 
-            // Incrementar likes al abrir la ventana si es un nuevo día
-            if (currentDate > lastLikeDate) {
-                likes++;
-                localStorage.setItem('likes', likes);
-                localStorage.setItem('lastLikeDate', currentDate);
-                likeCount.textContent = `${likes}`;
-            }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 
-            // Incrementar likes al hacer clic en el botón
-            likeBtn.onclick = function() {
-                var lastLikeDate = localStorage.getItem('lastLikeDate') ? new Date(localStorage.getItem('lastLikeDate')) : new Date(0);
-                var now = new Date();
-
-                // Calcular la diferencia en horas entre la última vez que se dio like y ahora
-                var hoursDifference = Math.abs(now - lastLikeDate) / 36e5;
-
-                if (hoursDifference >= 24) {
-                    likes++;
-                    localStorage.setItem('likes', likes);
-                    localStorage.setItem('lastLikeDate', now);
-                    likeCount.textContent = `${likes}`;
-
-                    // Mostrar mensaje de agradecimiento
-                    likeMessageText.textContent = "GRACIAS POR TU LIKE. ES MUY IMPORTANTE PARA NOSOTROS, PUES TU ERES NUESTRA RAZÓN DE MEJORAR CADA DÍA.";
-                } else {
-                    // Mostrar mensaje de solo una vez al día
-                    likeMessageText.textContent = "GRACIAS PERO SOLO PUEDES DARLE LIKE UNA VEZ AL DÍA";
-                }
-                likeMessage.style.display = "block";
-            }
-
-            // Cerrar el mensaje emergente
-            closeMessage.onclick = function() {
-                likeMessage.style.display = "none";
-            }
-
-            // Cerrar el modal al hacer clic en la 'x' y redirigir
-            span.onclick = function() {
-                modal.style.display = "none";
-                window.location.href = "https://www.vendeygana.net/user/";
-            }
-
-            // Redirigir al enlace de compra
-            buyBtn.onclick = function() {
-                window.location.href = "https://vendeygana2.github.io/pruebanextflix/";
-            }
-
-            // Redirigir al enlace de volver
-            backBtn.onclick = function() {
-                window.location.href = "https://www.vendeygana.net/user/";
-            }
-
-            // Cerrar el modal si se hace clic fuera de él
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                    window.location.href = "https://www.vendeygana.net/user/";
-                }
-            }
-
-            // Incrementar likes automáticamente cada 4 horas y también al finalizar el día
-            function incrementLikes() {
-                likes += 4;
-                localStorage.setItem('likes', likes);
-                likeCount.textContent = `${likes}`;
-            }
-
-            incrementLikes(); // Incrementar likes al cargar la página
-
-            setInterval(incrementLikes, 4 * 60 * 60 * 1000); // Cada 4 horas
-
-            var midnight = new Date();
-            midnight.setHours(24, 0, 0, 0);
-            var timeUntilMidnight = midnight.getTime() - now.getTime();
-
-            setTimeout(function() {
-                setInterval(function() {
-                    incrementLikes(); // Incrementar 4 likes cada 4 horas
-                    likes += 14; // Incrementar 14 likes al finalizar el día
-                    localStorage.setItem('likes', likes);
-                    likeCount.textContent = `${likes}`;
-                }, 24 * 60 * 60 * 1000); // Ejecutar cada 24 horas
-            }, timeUntilMidnight);
-        });
-    </script>
 </body>
 </html>
