@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pantalla Emergente</title>
     <style>
+        body {
+            display: none; /* Ocultar el cuerpo hasta que se cargue el contenido */
+        }
         .modal {
             display: none;
             position: fixed;
@@ -18,20 +21,23 @@
         }
         .modal-content {
             background-color: #fefefe;
-            margin: 10% auto;
+            margin: 0;
             padding: 20px;
             border: 2px solid orange;
             border-radius: 15px;
-            width: 90%;
-            max-width: 600px;
-            position: relative;
+            width: 100%;
+            height: 100%;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
         }
         .close {
             position: absolute;
             top: 10px;
             right: 25px;
-            color: #aaa;
+            color: #ED7318;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
@@ -60,9 +66,10 @@
         }
         iframe {
             width: 100%;
-            height: 315px;
+            height: auto;
             border: 2px solid #ddd;
             border-radius: 5px;
+            flex-grow: 1;
         }
         button {
             display: block;
@@ -87,12 +94,12 @@
         }
     </style>
 </head>
-<body>
+<body onload="showModal()">
 
 <!-- Ventana emergente -->
 <div id="myModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" onclick="redirect()">&times;</span>
         <p>MIRA EL VIDEO ANTES DE COMPRAR</p>
         <iframe src="https://www.youtube.com/embed/B0MFq0Lnhw8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <br><br>
@@ -104,20 +111,19 @@
 </div>
 
 <script>
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
-
-    window.onload = function() {
-        modal.style.display = "block";
+    function showModal() {
+        document.body.style.display = "block"; // Mostrar el cuerpo al cargar
+        document.getElementById("myModal").style.display = "block";
     }
 
-    span.onclick = function() {
-        modal.style.display = "none";
+    function redirect() {
+        window.location.href = 'https://www.vendeygana.net/user/';
     }
 
     window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
         if (event.target == modal) {
-            modal.style.display = "none";
+            redirect();
         }
     }
 </script>
