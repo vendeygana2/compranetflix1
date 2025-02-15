@@ -3,130 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pantalla Emergente</title>
+    <title>Formulario</title>
     <style>
-        body {
-            display: none; /* Ocultar el cuerpo hasta que se cargue el contenido */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .iframe-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         .modal {
-            display: none;
+            display: none; /* Oculto por defecto */
             position: fixed;
-            z-index: 1;
+            z-index: 2;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo negro con opacidad */
+            text-align: center;
         }
         .modal-content {
-            background-color: #fefefe;
-            margin: 0;
-            padding: 20px;
-            border: 2px solid orange;
-            border-radius: 15px;
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background-color: #333;
+            margin: auto;
+            padding: 30px;
+            border: 5px solid #a9ff00; /* Marco verde */
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+            color: white; /* Color del texto */
+            font-size: 18px; /* Aumentar el tamaño de la letra */
             position: relative;
         }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 25px;
-            color: #ED7318;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .highlight {
-            font-weight: bold;
-            color: red;
-        }
-        .blink {
-            animation: blink-animation 1.5s steps(5, start) infinite;
-            -webkit-animation: blink-animation 1.5s steps(5, start) infinite;
-            font-weight: bold;
-            color: orange;
-            font-size: 1.5em;
-            text-align: center;
-        }
-        @keyframes blink-animation {
-            to {
-                visibility: hidden;
-            }
-        }
-        @-webkit-keyframes blink-animation {
-            to {
-                visibility: hidden;
-            }
-        }
-        iframe {
-            width: 100%;
+        .modal-content .logo {
+            width: 100px; /* Ajustar el tamaño del logo */
             height: auto;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            flex-grow: 1;
+            margin: 10px;
+            animation: blink 2s infinite; /* Animación de titileo */
         }
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #E50914; /* Color rojo del logo de Netflix */
-            color: white;
+        .modal-content .btn {
+            background-color: #a9ff00; /* Color del marco verde */
+            color: black; /* Letras negras */
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 15px 30px;
             text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 5px;
         }
-        button:hover {
-            background-color: #B20710;
-        }
-        .info-btn {
-            background-color: #ED7318; /* Color naranja */
-        }
-        .info-btn:hover {
-            background-color: #D66318;
+        @keyframes blink {
+            50% {
+                opacity: 0.5;
+            }
         }
     </style>
 </head>
-<body onload="showModal()">
-
-<!-- Ventana emergente -->
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="redirect()">&times;</span>
-        <p>MIRA EL VIDEO ANTES DE COMPRAR</p>
-        <iframe src="https://www.youtube.com/embed/B0MFq0Lnhw8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <br><br>
-        <button onclick="window.location.href='https://vendeygana2.github.io/pruebanextflix/'">Comprar</button>
-        <p class="blink">CRECEMOS CONTIGO!</p>
-        <p>En <strong>VENDE Y GANA</strong> queremos apoyarte. Ahora, si realizas una transferencia de <span class="highlight">700 BS por Pago Móvil a Mercantil</span> para la compra de cuentas, podrás reclamar con el comprobante de pago o referencia <span class="highlight">TOTALMENTE GRATIS</span> una pantalla de una de estas plataformas: <strong>Amazon Prime</strong>, <strong>Max</strong>, <strong>Panaxtreaming</strong>, <strong>Flujo TV</strong>, <strong>Paramount</strong>, <strong>Crunchyroll</strong>, <strong>Disney</strong> o <strong>YouTube Premium</strong>.</p>
-        <button class="info-btn" onclick="window.location.href='https://departamentodecuentas.company.site/products/recarga-premium'">Más información</button>
+<body>
+    <!-- Contenedor para el iframe para ocupar toda la pantalla -->
+    <div class="iframe-container">
+        <iframe src="https://fluidforms.co/embed/form?id=67a660e6b5dbcdf5a509bf82" id="formIframe"></iframe>
     </div>
-</div>
 
-<script>
-    function showModal() {
-        document.body.style.display = "block"; // Mostrar el cuerpo al cargar
-        document.getElementById("myModal").style.display = "block";
-    }
+    <!-- Botón "X" para abrir el popup -->
+    <button class="close-btn" id="openModalBtn" onclick="mostrarModal()" style="position: absolute; top: 10px; right: 10px; background-color: #ff5f5f; border: none; color: #fff; padding: 10px 15px; cursor: pointer; border-radius: 5px; z-index: 1000;">X</button>
 
-    function redirect() {
-        window.location.href = 'https://www.vendeygana.net/user/';
-    }
+    <!-- Ventana emergente -->
+    <div id="miModal" class="modal">
+        <div class="modal-content">
+            <img class="logo" src="https://dhgf5mcbrms62.cloudfront.net/110979006/header-fcHJMd/IVsTzWZ-200x200.webp" alt="Logo Panaxtreaming">
+            <img class="logo" src="https://flujotvla.com/wp-content/uploads/2025/01/logo_flujotv_blanco-300x181-1-e1735926597394.png" alt="Logo FlujoTV">
+            <p>Si quieres disfrutar sin complicaciones de problemas como CONTRASEÑA INCORRECTA Y LA DIFICULTAD DE INICIAR SESIÓN DE NETFLIX y otras aplicaciones, adquiere Panaxtreaming o Flujo TV.</p>
+            <p>Panaxtreaming es orgullosamente venezolana hecha por venezolanos y, como Flujo TV, te ofrecen:</p>
+            <p>TV EN VIVO con más de 800 canales: Deportes (TODOS LOS ESPN, FOXSPORT y DIRECTV SPORTS), Noticias, Infantiles, música y un catálogo de más de 9,000 películas y series estrenos de las principales plataformas como Netflix, Amazon Prime, Disney Plus, Max, Crunchyroll, Apple TV.</p>
+            <button class="btn" onclick="window.location.href='https://vendeygana2.github.io/comprapanaxtreaming/'">Comprar Panaxtreaming</button>
+            <button class="btn" onclick="window.location.href='https://vendeygana2.github.io/compraflujotv/'">Comprar Flujo TV</button>
+            <button class="btn" onclick="window.location.href='https://www.vendeygana.net/user/'">Cerrar</button>
+        </div>
+    </div>
 
-    window.onclick = function(event) {
-        var modal = document.getElementById("myModal");
-        if (event.target == modal) {
-            redirect();
+    <script>
+        function mostrarModal() {
+            var modal = document.getElementById('miModal');
+            modal.style.display = "block";
+            document.getElementById('openModalBtn').style.display = "none";
         }
-    }
-</script>
 
+        window.onclick = function(event) {
+            var modal = document.getElementById('miModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
