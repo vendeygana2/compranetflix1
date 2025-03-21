@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Pantalla Completa</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_onkeoskCL_6LMDHp59vSoPO81DhbB15C_w&s">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden; /* Evita el desplazamiento */
             background-color: #f4f4f4;
         }
 
@@ -20,7 +20,6 @@
             height: 100vh;
             position: relative;
             background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         iframe {
@@ -45,6 +44,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            text-decoration: none; /* Elimina el subrayado */
+            z-index: 1000; /* Asegura que esté por encima del iframe */
         }
 
         .close-btn:hover {
@@ -54,14 +55,10 @@
 </head>
 <body>
     <div class="container">
-        <button class="close-btn" onclick="goBack()">X</button>
+        <!-- Botón de cerrar -->
+        <a class="close-btn" href="https://www.vendeygana.net/user/">X</a>
+        <!-- Iframe del formulario -->
         <iframe src="https://fluidforms.co/embed/form?id=67a660e6b5dbcdf5a509bf82" title="Formulario"></iframe>
     </div>
-    
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
 </body>
 </html>
