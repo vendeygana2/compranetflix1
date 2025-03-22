@@ -18,17 +18,20 @@
             justify-content: center;
         }
 
+        /* Estilos para la ventana emergente */
         .popup {
             position: fixed;
-            top: 20px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
             text-align: center;
             z-index: 1000;
+            width: 90%; /* Ajuste responsivo: ocupa 90% del ancho de la pantalla */
+            max-width: 400px; /* Para pantallas grandes, límite de ancho */
         }
 
         .popup h2 {
@@ -47,10 +50,31 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 100%; /* Botones ocupan todo el ancho en móviles */
+            max-width: 200px; /* Límite de tamaño para pantallas grandes */
         }
 
         .popup button:hover {
             background-color: #d46314; /* Color más oscuro al pasar el mouse */
+        }
+
+        /* Estilos para la "X" sin botón */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ED7318; /* Color naranja */
+            font-size: 24px; /* Tamaño de la "X" */
+            font-weight: bold;
+            cursor: pointer;
+            background: none; /* Sin fondo */
+            border: none; /* Sin borde */
+            padding: 0; /* Sin padding */
+            line-height: 1; /* Ajuste de alineación */
+        }
+
+        .close-btn:hover {
+            color: #d46314; /* Color más oscuro al pasar el mouse */
         }
 
         iframe {
@@ -62,7 +86,8 @@
 </head>
 <body>
     <!-- Mensaje emergente -->
-    <div class="popup">
+    <div class="popup" id="popup">
+        <span class="close-btn" onclick="closePopup()">X</span>
         <h2>DESCARGA NUESTRA APP Y DISFRUTA DE LOS MEJORES BENEFICIOS</h2>
         <button onclick="window.location.href='https://app.jotform.com/VENDEYGANASTREAMING/vende-y-gana-panaxtreaming'">DESCARGAR APP</button>
         <button onclick="window.location.href='https://www.youtube.com/watch?v=YaZccFewDjY'">VER VIDEO DESCARGA LA APP</button>
@@ -70,5 +95,12 @@
 
     <!-- Formulario embebido -->
     <iframe src="https://form.jotform.com/250575335732054" title="Formulario"></iframe>
+
+    <script>
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none'; /* Oculta la ventana emergente */
+        }
+    </script>
 </body>
 </html>
