@@ -1,106 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pantalla de Juegos</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Estilos para la ventana emergente */
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
-            text-align: center;
-            z-index: 1000;
-            width: 90%; /* Ajuste responsivo: ocupa 90% del ancho de la pantalla */
-            max-width: 400px; /* Para pantallas grandes, límite de ancho */
-        }
-
-        .popup h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .popup button {
-            background-color: #ED7318; /* Color de los botones */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%; /* Botones ocupan todo el ancho en móviles */
-            max-width: 200px; /* Límite de tamaño para pantallas grandes */
-        }
-
-        .popup button:hover {
-            background-color: #d46314; /* Color más oscuro al pasar el mouse */
-        }
-
-        /* Estilos para la "X" sin botón */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #ED7318; /* Color naranja */
-            font-size: 24px; /* Tamaño de la "X" */
-            font-weight: bold;
-            cursor: pointer;
-            background: none; /* Sin fondo */
-            border: none; /* Sin borde */
-            padding: 0; /* Sin padding */
-            line-height: 1; /* Ajuste de alineación */
-        }
-
-        .close-btn:hover {
-            color: #d46314; /* Color más oscuro al pasar el mouse */
-        }
-
-        iframe {
-            width: 100vw;
-            height: 100vh;
-            border: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla de Juegos</title>
+  <style>
+    /* Estilos generales */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f3f4f6;
+      font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+      margin: 20px;
+      font-size: 24px;
+      color: #333;
+      text-align: center;
+    }
+    
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* Por defecto, 4 columnas */
+      gap: 15px;
+      justify-items: center;
+      width: 90%;
+      max-width: 800px;
+    }
+    
+    .button {
+      width: 150px;
+      height: 150px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .button img {
+      width: 80%;
+      height: auto;
+    }
+    
+    .button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Media query para dispositivos móviles */
+    @media (max-width: 600px) {
+      .button-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en dispositivos móviles */
+      }
+      
+      .button {
+        width: 120px;
+        height: 120px;
+      }
+      
+      h1 {
+        font-size: 20px;
+        margin: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Mensaje emergente -->
-    <div class="popup" id="popup">
-        <span class="close-btn" onclick="closePopup()">X</span>
-        <h2>DESCARGA NUESTRA APP Y DISFRUTA DE LOS MEJORES BENEFICIOS</h2>
-        <button onclick="window.location.href='https://app.jotform.com/VENDEYGANASTREAMING/vende-y-gana-panaxtreaming'">DESCARGAR APP</button>
-        <button onclick="window.location.href='https://www.youtube.com/watch?v=YaZccFewDjY'">VER VIDEO DESCARGA LA APP</button>
-    </div>
-
-    <!-- Formulario embebido -->
-    <iframe src="https://form.jotform.com/250575335732054" title="Formulario"></iframe>
-
-    <script>
-        function closePopup() {
-            const popup = document.getElementById('popup');
-            popup.style.display = 'none'; /* Oculta la ventana emergente */
-        }
-    </script>
+  <h1>ELIGE EL JUEGO QUE DESEAS RECARGAR</h1>
+  <div class="button-container">
+    <!-- Botón de Free Fire -->
+    <button class="button" onclick="window.location.href='https://vendeygana.forms.app/recargafreefire'">
+      <img src="https://brandlogos.net/wp-content/uploads/2022/07/free_fire-logo_brandlogos.net_xvnua.png" alt="Free Fire">
+    </button>
+    <!-- Botón de Call of Duty -->
+    <button class="button" onclick="alert('Abrir Call of Duty')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Call_of_Duty_Mobile_Logo.png" alt="Call of Duty">
+    </button>
+    <!-- Botón de Mobile Legends -->
+    <button class="button" onclick="alert('Abrir Mobile Legends')">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Mobile-legends-logo.svg/2560px-Mobile-legends-logo.svg.png" alt="Mobile Legends">
+    </button>
+    <!-- Botón de Fortnite -->
+    <button class="button" onclick="alert('Abrir Fortnite')">
+      <img src="https://pngimg.com/d/fortnite_PNG97.png" alt="Fortnite">
+    </button>
+    <!-- Botón de Clash of Clans -->
+    <button class="button" onclick="alert('Abrir Clash of Clans')">
+      <img src="https://www.pngplay.com/wp-content/uploads/10/Clash-Of-Clans-Logo-PNG-HD-Photos.png" alt="Clash of Clans">
+    </button>
+    <!-- Botón de PUBG -->
+    <button class="button" onclick="alert('Abrir PUBG')">
+      <img src="https://static.cdnlogo.com/logos/p/57/pubg.png" alt="PUBG">
+    </button>
+    <!-- Botón de Robux (redirige al enlace solicitado) -->
+    <button class="button" onclick="window.location.href='https://96vxnn73.forms.app/recargafreefire-1'">
+      <img src="https://static.vecteezy.com/system/resources/previews/027/127/586/non_2x/roblox-logo-roblox-icon-transparent-free-png.png" alt="Robux">
+    </button>
+    <!-- Botón de Lords Mobile -->
+    <button class="button" onclick="alert('Abrir Lords Mobile')">
+      <img src="https://cdn.freelogovectors.net/wp-content/uploads/2022/01/lords-mobile-logo-freelogovectors.net_.png" alt="Lords Mobile">
+    </button>
+  </div>
 </body>
 </html>
