@@ -3,216 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADVERTENCIA DE PAGO</title>
+    <title>Formulario Fullscreen</title>
     <style>
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
             overflow: hidden;
+            font-family: Arial, sans-serif;
         }
-
-        /* Formulario de fondo - completamente visible */
-        .background-form {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        .background-form iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Capa de advertencia */
-        .warning-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Contenedor de advertencia */
-        .warning-container {
-            width: 90%;
-            max-width: 500px;
-            background-color: #fff;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            border-left: 5px solid #ffc107;
-        }
-
-        .warning-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .warning-icon {
-            font-size: 30px;
-            margin-right: 10px;
-            color: #ffc107;
-        }
-
-        .warning-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #343a40;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .warning-content {
-            text-align: left;
-            margin-bottom: 25px;
-            line-height: 1.6;
-            color: #495057;
-        }
-
-        .warning-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .item-icon {
-            margin-right: 10px;
-            font-size: 20px;
-        }
-
-        .banks-logos {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-            align-items: center;
-        }
-
-        .bank-logo {
-            height: 50px;
-            object-fit: contain;
-        }
-
-        .lock-icon {
-            height: 60px;
-            object-fit: contain;
-        }
-
-        .continue-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            text-transform: uppercase;
-        }
-
-        .continue-btn:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .important-text {
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #dc3545;
-        }
-
-        /* Botón de cerrar en el formulario */
-        .form-close-btn {
+        
+        .close-btn {
             position: fixed;
             top: 15px;
-            right: 15px;
-            background-color: #dc3545;
-            color: white;
-            width: 30px;
-            height: 30px;
+            right: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            z-index: 1000;
+            text-decoration: none;
+            background: rgba(255,255,255,0.7);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
-            font-weight: bold;
-            z-index: 3;
-            border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            align-items: center;
+        }
+        
+        .close-btn:hover {
+            color: #000;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .form-container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            border: none;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <!-- Formulario de fondo completamente visible y funcional -->
-    <div class="background-form">
-        <iframe src="https://saldoexpress.forms.app/compranetflix" title="Formulario"></iframe>
+    <a href="https://www.vendeygana.net/user/" class="close-btn">×</a>
+    <div class="form-container">
+        <iframe src="https://vendeygana.forms.app/compranet" allowfullscreen></iframe>
     </div>
-
-    <!-- Pantalla de advertencia (superpuesta) -->
-    <div class="warning-overlay" id="warningOverlay">
-        <div class="warning-container">
-            <div class="warning-header">
-                <div class="warning-icon">⚠️</div>
-                <h1 class="warning-title">advertencia importante</h1>
-            </div>
-
-            <div class="warning-content">
-                <div class="warning-item">
-                    <span class="item-icon">💳</span>
-                    <span><span class="important-text">si desea realizar una compra utilizando el método de pago móvil desde banesco:</span></span>
-                </div>
-                <div class="warning-item">
-                    <span class="item-icon">🚫</span>
-                    <span><span class="important-text">no se están recibiendo pagos móviles de esta entidad bancaria (banesco).</span></span>
-                </div>
-                <div class="warning-item">
-                    <span class="item-icon">⚙️</span>
-                    <span>Esto se debe a una falla en el sistema de los bancos, que no permite visualizar la operación de forma inmediata.</span>
-                </div>
-            </div>
-
-            <div class="banks-logos">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Banesco_logo.svg/2560px-Banesco_logo.svg.png" alt="Banesco" class="bank-logo">
-                <img src="https://png.pngtree.com/png-clipart/20190905/original/pngtree-forbidden-lock-cartoon-icon-png-image_4512034.jpg" alt="Bloqueado" class="lock-icon">
-            </div>
-
-            <button class="continue-btn" onclick="hideWarning()">Entendido, continuar</button>
-        </div>
-    </div>
-
-    <!-- Botón para cerrar el formulario (visible después de ocultar la advertencia) -->
-    <div class="form-close-btn" id="closeBtn" onclick="redirectToVendeygana()" style="display: none;">X</div>
-
-    <script>
-        // Oculta la advertencia y muestra el botón de cerrar
-        function hideWarning() {
-            document.getElementById('warningOverlay').style.display = 'none';
-            document.getElementById('closeBtn').style.display = 'flex';
-        }
-
-        // Redirige al hacer click en la X
-        function redirectToVendeygana() {
-            window.location.href = "https://www.vendeygana.net/user/";
-        }
-    </script>
 </body>
 </html>
